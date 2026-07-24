@@ -23,6 +23,8 @@ writes [`docs/demo/index.html`](docs/demo/index.html), and observes the required
 `BLOCKED` gate. The `assay demo` command itself exits `1`; `make demo` treats
 that expected gate result as success.
 
+![ASSAY per-sample regression report](docs/assets/demo.jpg)
+
 After installation, the brief's command also works:
 
 ```bash
@@ -61,4 +63,3 @@ Datasets and scorers are content-addressed. A run pins both hashes, unversioned
 dataset payloads are rejected, and cross-scorer-version comparisons raise a
 hard error. The vendored `loopkit` subset is in
 `src/assay/schemas/loopkit.py`.
-
