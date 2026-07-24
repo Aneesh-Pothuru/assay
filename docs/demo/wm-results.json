@@ -1,0 +1,29 @@
+{
+  "fixture": "tiny-gridworld-v1",
+  "scope": "contract test, not a public-checkpoint measurement",
+  "wm/drift": {
+    "curve": [
+      0.0,
+      0.0,
+      0.1,
+      0.3,
+      0.4
+    ],
+    "horizons": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "wm/grounding": {
+    "selectivity": 1.0
+  },
+  "wm/memory": {
+    "occlusion_consistency": 1.0
+  },
+  "wm/utility": {
+    "policy_transfer_ratio": 0.75
+  }
+}

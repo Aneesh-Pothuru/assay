@@ -1,0 +1,33 @@
+{
+  "baseline_run": "demo-baseline",
+  "candidate_run": "demo-candidate",
+  "comparison": {
+    "baseline": 1.0,
+    "candidate": 0.88,
+    "ci_high": -0.05598784431526255,
+    "ci_low": -0.18401215568473744,
+    "corrected_alpha": 0.05,
+    "delta": -0.12,
+    "improvements": [],
+    "method": "paired normal approximation",
+    "metric": "accuracy",
+    "reason": "paired confidence interval excludes the allowed tolerance",
+    "regressions": [
+      "sample-000",
+      "sample-001",
+      "sample-002",
+      "sample-003",
+      "sample-004",
+      "sample-005",
+      "sample-006",
+      "sample-007",
+      "sample-008",
+      "sample-009",
+      "sample-010",
+      "sample-011"
+    ],
+    "verdict": "BLOCKED"
+  },
+  "dataset_hash": "sha256:70d3abece3399e80f930e2e07c6448f5e7c0d3f40e10ce2126c87fd3092dee7a",
+  "scorer_hash": "sha256:f11df01ba73ed424fa4f58e3e87a10e54e17945625589870e103599da4e77358"
+}

@@ -1,0 +1,9 @@
+{
+  "detected": 12,
+  "detection_rate": 1.0,
+  "false_positive_rate": 0.0,
+  "false_positives": 0,
+  "fixture": "bundled-seeded-regression-v1",
+  "scope": "deterministic regression fixture; not an external benchmark",
+  "seeded": 12
+}

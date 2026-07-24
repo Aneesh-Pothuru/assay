@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ASSAY demo — BLOCKED</title>
+<style>
+body{font:16px/1.5 system-ui;max-width:920px;margin:3rem auto;padding:0 1rem;color:#18202a}
+.verdict{display:inline-block;padding:.35rem .7rem;border-radius:.4rem;background:#8b1e2d;color:white;font-weight:700}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0}
+.card{border:1px solid #d8dee7;border-radius:.6rem;padding:1rem} table{border-collapse:collapse;width:100%}
+th,td{border-bottom:1px solid #ddd;text-align:left;padding:.5rem} code{font-size:.8rem;word-break:break-all}
+</style></head><body>
+<p>ASSAY / deterministic bundled replay</p>
+<h1>Per-sample regression report</h1>
+<p class="verdict">BLOCKED</p>
+<div class="cards">
+<div class="card"><strong>Baseline</strong><br>1.000</div>
+<div class="card"><strong>Candidate</strong><br>0.880</div>
+<div class="card"><strong>Delta</strong><br>-0.120</div>
+</div>
+<p>95% paired CI: [-0.184, -0.056].
+Method: paired normal approximation. 12 of
+100 samples regressed; no aggregate-only verdict.</p>
+<p><small>Dataset <code>sha256:70d3abece3399e80f930e2e07c6448f5e7c0d3f40e10ce2126c87fd3092dee7a</code><br>
+Scorer <code>sha256:f11df01ba73ed424fa4f58e3e87a10e54e17945625589870e103599da4e77358</code></small></p>
+<h2>Regressed samples</h2>
+<table><thead><tr><th>Sample</th><th>Before</th><th>After</th></tr></thead>
+<tbody><tr><td>sample-000</td><td>1.000</td><td>0.000</td></tr>
+<tr><td>sample-001</td><td>1.000</td><td>0.000</td></tr>
+<tr><td>sample-002</td><td>1.000</td><td>0.000</td></tr>
+<tr><td>sample-003</td><td>1.000</td><td>0.000</td></tr>
+<tr><td>sample-004</td><td>1.000</td><td>0.000</td></tr>
+<tr><td>sample-005</td><td>1.000</td><td>0.000</td></tr>
+<tr><td>sample-006</td><td>1.000</td><td>0.000</td></tr>
+<tr><td>sample-007</td><td>1.000</td><td>0.000</td></tr>
+<tr><td>sample-008</td><td>1.000</td><td>0.000</td></tr>
+<tr><td>sample-009</td><td>1.000</td><td>0.000</td></tr>
+<tr><td>sample-010</td><td>1.000</td><td>0.000</td></tr>
+<tr><td>sample-011</td><td>1.000</td><td>0.000</td></tr></tbody></table>
+<p>This page is generated from a synthetic fixture and makes no
+real-provider performance claim. See LIMITS.md.</p>
+</body></html>
