@@ -22,39 +22,125 @@ def write_demo_report(
     json_path = path.with_name("comparison.json")
     json_path.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
     rows = "\n".join(
-        f"<tr><td>{html.escape(sample_id)}</td><td>1.000</td><td>0.000</td></tr>"
+        f"<tr><td><span class='sample-dot'></span>{html.escape(sample_id)}</td>"
+        "<td>1.000</td><td>0.000</td><td class='delta'>−1.000</td></tr>"
         for sample_id in comparison.regressions
     )
+    regression_chips = "".join(
+        f"<span>{html.escape(sample_id)}</span>" for sample_id in comparison.regressions
+    )
+    baseline_percent = max(0.0, min(100.0, comparison.baseline * 100))
+    candidate_percent = max(0.0, min(100.0, comparison.candidate * 100))
     document = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ASSAY demo — {comparison.verdict.value}</title>
 <style>
-body{{font:16px/1.5 system-ui;max-width:920px;margin:3rem auto;padding:0 1rem;color:#18202a}}
-.verdict{{display:inline-block;padding:.35rem .7rem;border-radius:.4rem;background:#8b1e2d;color:white;font-weight:700}}
-.cards{{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0}}
-.card{{border:1px solid #d8dee7;border-radius:.6rem;padding:1rem}} table{{border-collapse:collapse;width:100%}}
-th,td{{border-bottom:1px solid #ddd;text-align:left;padding:.5rem}} code{{font-size:.8rem;word-break:break-all}}
-</style></head><body>
-<p>ASSAY / deterministic bundled replay</p>
-<h1>Per-sample regression report</h1>
-<p class="verdict">{comparison.verdict.value}</p>
-<div class="cards">
-<div class="card"><strong>Baseline</strong><br>{comparison.baseline:.3f}</div>
-<div class="card"><strong>Candidate</strong><br>{comparison.candidate:.3f}</div>
-<div class="card"><strong>Delta</strong><br>{comparison.delta:+.3f}</div>
-</div>
-<p>95% paired CI: [{comparison.ci_low:+.3f}, {comparison.ci_high:+.3f}].
-Method: {html.escape(comparison.method)}. {len(comparison.regressions)} of
-100 samples regressed; no aggregate-only verdict.</p>
-<p><small>Dataset <code>{html.escape(baseline.dataset_hash)}</code><br>
-Scorer <code>{html.escape(baseline.scorer_hash)}</code></small></p>
-<h2>Regressed samples</h2>
-<table><thead><tr><th>Sample</th><th>Before</th><th>After</th></tr></thead>
-<tbody>{rows}</tbody></table>
-<p>This page is generated from a synthetic fixture and makes no
-real-provider performance claim. See LIMITS.md.</p>
-</body></html>
+:root{{--bg:#08090f;--panel:#11131d;--panel-2:#171a27;--line:#292d3e;
+--text:#fafaff;--muted:#969caf;--faint:#636a7c;--indigo:#8d8cff;--blue:#6ab7ff;
+--coral:#ff746f;--coral-soft:#3e1c20;--green:#68e3a2;--shadow:0 26px 74px rgba(0,0,0,.42)}}
+*{{box-sizing:border-box}}html{{scroll-behavior:smooth}}body{{margin:0;color:var(--text);
+background:radial-gradient(circle at 76% -5%,rgba(100,99,228,.2),transparent 32rem),
+linear-gradient(rgba(141,140,255,.025) 1px,transparent 1px),
+linear-gradient(90deg,rgba(141,140,255,.025) 1px,transparent 1px),var(--bg);
+background-size:auto,34px 34px,34px 34px;font:14px/1.55 Inter,ui-sans-serif,
+-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}}.topbar{{height:58px;padding:0 26px;
+display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);
+position:sticky;top:0;z-index:10;background:rgba(8,9,15,.87);backdrop-filter:blur(16px)}}
+.brand{{display:flex;align-items:center;gap:11px;font-weight:780}}.brand-mark{{width:27px;
+height:27px;border-radius:8px;display:grid;place-items:center;background:linear-gradient(145deg,
+var(--indigo),var(--blue));color:#090911;box-shadow:0 0 24px rgba(141,140,255,.28)}}
+.topmeta{{display:flex;align-items:center;gap:14px;color:var(--muted);font:10px ui-monospace,
+monospace;letter-spacing:.11em;text-transform:uppercase}}.gate{{display:flex;align-items:center;
+gap:7px;color:#ffaaa6}}.gate:before{{content:"";width:6px;height:6px;border-radius:50%;
+background:var(--coral);box-shadow:0 0 12px var(--coral)}}main{{max-width:1320px;margin:auto;
+padding:30px 26px 64px}}.hero{{display:grid;grid-template-columns:minmax(0,1.2fr)
+minmax(350px,.8fr);border:1px solid var(--line);border-radius:18px;overflow:hidden;
+background:linear-gradient(145deg,rgba(22,24,38,.98),rgba(10,12,20,.98));box-shadow:var(--shadow)}}
+.hero-copy{{padding:36px 38px}}.eyebrow,.section-label{{margin:0 0 13px;color:var(--indigo);
+font:750 10px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.16em}}.eyebrow:before{{
+content:"";display:inline-block;width:24px;height:1px;background:currentColor;vertical-align:middle;
+margin-right:9px}}h1{{font-size:clamp(38px,5vw,66px);line-height:.98;letter-spacing:-.05em;
+margin:0}}.lede{{font-size:17px;color:#b9becd;max-width:720px;margin:20px 0 0}}.verdict-panel{{
+border-left:1px solid var(--line);padding:30px;background:rgba(6,7,13,.3);display:flex;
+flex-direction:column;justify-content:space-between}}.verdict{{display:inline-flex;align-items:center;
+gap:9px;align-self:flex-start;padding:8px 11px;border-radius:999px;background:var(--coral-soft);
+border:1px solid #643039;color:#ffaaa6;font:800 10px ui-monospace,monospace;letter-spacing:.11em}}
+.verdict:before{{content:"";width:7px;height:7px;border-radius:50%;background:var(--coral);
+box-shadow:0 0 13px var(--coral)}}.verdict-copy strong{{display:block;font-size:43px;line-height:1;
+letter-spacing:-.04em;margin:25px 0 8px}}.verdict-copy span{{color:var(--muted)}}
+.provenance{{display:grid;gap:10px;margin-top:23px}}.hash{{border-top:1px solid var(--line);
+padding-top:10px}}.hash span{{display:block;color:var(--faint);font:700 9px ui-monospace,
+monospace;text-transform:uppercase;letter-spacing:.1em}}.hash code{{display:block;color:#b8bfd4;
+font:10px ui-monospace,monospace;overflow-wrap:anywhere;margin-top:4px}}.comparison{{display:grid;
+grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:14px;margin:17px 0}}.panel{{
+border:1px solid var(--line);border-radius:15px;background:linear-gradient(180deg,
+rgba(18,20,31,.97),rgba(10,12,20,.98));overflow:hidden}}.panel-head{{padding:18px 20px;
+border-bottom:1px solid var(--line);display:flex;align-items:end;justify-content:space-between;
+gap:16px}}.panel-head h2{{margin:0;font-size:21px}}.panel-head span{{color:var(--muted);
+font-size:11px}}.score-body{{padding:22px}}.score-row{{display:grid;
+grid-template-columns:86px minmax(0,1fr) 60px;align-items:center;gap:12px;margin:13px 0}}
+.score-row>span{{color:var(--muted);font-size:11px}}.score-row strong{{text-align:right;
+font:750 13px ui-monospace,monospace}}.track{{height:10px;border-radius:999px;background:#080a10;
+border:1px solid var(--line);overflow:hidden}}.track i{{display:block;height:100%;
+background:linear-gradient(90deg,var(--indigo),var(--blue));border-radius:inherit}}.track.candidate i{{
+background:linear-gradient(90deg,var(--coral),#ff9a73)}}.delta-block{{display:grid;
+grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);
+border-radius:11px;overflow:hidden;margin-top:24px}}.delta-block div{{background:#0d0f18;padding:13px}}
+.delta-block span{{display:block;color:var(--faint);font:700 8px ui-monospace,monospace;
+text-transform:uppercase;letter-spacing:.1em}}.delta-block strong{{display:block;margin-top:5px;
+font:750 13px ui-monospace,monospace}}.regression-map{{padding:20px}}.regression-grid{{
+display:grid;grid-template-columns:repeat(4,1fr);gap:7px}}.regression-grid span{{border:1px solid
+#4d2930;background:#28151a;color:#ffaaa6;padding:8px;border-radius:7px;font:650 9px
+ui-monospace,monospace;text-align:center}}.regression-map p{{color:var(--muted);font-size:12px;
+margin:16px 0 0}}.table-panel{{margin-top:14px}}.scroll{{overflow:auto;max-height:520px}}
+table{{border-collapse:collapse;width:100%;font-size:12px}}th,td{{text-align:left;padding:11px 13px;
+border-bottom:1px solid var(--line)}}th{{position:sticky;top:0;background:#131622;color:var(--faint);
+font:700 9px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.1em}}tbody tr:hover{{
+background:rgba(141,140,255,.035)}}.sample-dot{{display:inline-block;width:5px;height:5px;
+border-radius:50%;background:var(--coral);margin-right:9px;box-shadow:0 0 8px var(--coral)}}
+.delta{{color:#ffaaa6;font:700 11px ui-monospace,monospace}}.note{{display:flex;
+justify-content:space-between;gap:20px;color:var(--muted);font-size:12px;border-top:1px solid
+var(--line);padding-top:17px;margin-top:22px}}@media(max-width:900px){{.hero,.comparison{{
+grid-template-columns:1fr}}.verdict-panel{{border-left:0;border-top:1px solid var(--line)}}}}
+@media(max-width:650px){{.topbar{{padding:0 14px}}.topmeta>span:first-child{{display:none}}
+main{{padding:18px 14px 42px}}.hero-copy,.verdict-panel{{padding:24px 20px}}.regression-grid{{
+grid-template-columns:1fr 1fr}}.delta-block{{grid-template-columns:1fr}}.note{{flex-direction:column}}}}
+</style></head><body><header class="topbar"><div class="brand"><span class="brand-mark">A</span>
+ASSAY</div><div class="topmeta"><span>evaluation evidence / candidate run</span>
+<span class="gate">merge blocked</span></div></header><main>
+<section class="hero"><div class="hero-copy"><p class="eyebrow">Unified predictor eval · Journey 0</p>
+<h1>Per-sample regression report</h1><p class="lede">One versioned contract for
+language-model samples and world-model rollouts. The aggregate verdict remains
+anchored to every changed example.</p></div><aside class="verdict-panel">
+<span class="verdict">{comparison.verdict.value}</span><div class="verdict-copy">
+<strong>{len(comparison.regressions)}/100</strong><span>samples regressed</span></div>
+<div class="provenance"><div class="hash"><span>Dataset hash</span>
+<code>{html.escape(baseline.dataset_hash)}</code></div><div class="hash">
+<span>Scorer hash</span><code>{html.escape(baseline.scorer_hash)}</code></div></div>
+</aside></section><section class="comparison"><article class="panel">
+<div class="panel-head"><div><p class="section-label">Paired comparison</p>
+<h2>Candidate versus baseline</h2></div><span>{html.escape(comparison.method)}</span></div>
+<div class="score-body"><div class="score-row"><span>Baseline</span>
+<div class="track"><i style="width:{baseline_percent:.1f}%"></i></div>
+<strong>{comparison.baseline:.3f}</strong></div><div class="score-row"><span>Candidate</span>
+<div class="track candidate"><i style="width:{candidate_percent:.1f}%"></i></div>
+<strong>{comparison.candidate:.3f}</strong></div><div class="delta-block">
+<div><span>Delta</span><strong>{comparison.delta:+.3f}</strong></div>
+<div><span>CI low</span><strong>{comparison.ci_low:+.3f}</strong></div>
+<div><span>CI high</span><strong>{comparison.ci_high:+.3f}</strong></div></div></div>
+</article><article class="panel"><div class="panel-head"><div>
+<p class="section-label">Failure topology</p><h2>Regression matrix</h2></div>
+<span>sample-level</span></div><div class="regression-map">
+<div class="regression-grid">{regression_chips}</div><p>Every highlighted sample
+crossed from 1.000 to 0.000. No aggregate-only verdict.</p></div></article></section>
+<section class="panel table-panel"><div class="panel-head"><div>
+<p class="section-label">Changed examples</p><h2>Regressed samples</h2></div>
+<span>95% paired CI · [{comparison.ci_low:+.3f}, {comparison.ci_high:+.3f}]</span></div>
+<div class="scroll"><table><thead><tr><th>Sample</th><th>Before</th><th>After</th>
+<th>Delta</th></tr></thead><tbody>{rows}</tbody></table></div></section>
+<footer class="note"><span>Synthetic deterministic fixture · no real-provider claim.</span>
+<span>Generated by <strong>make demo</strong> · see LIMITS.md.</span></footer>
+</main></body></html>
 """
     path.write_text(document)
-
