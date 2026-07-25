@@ -2,12 +2,425 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="refresh" content="0; url=demo/">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>ASSAY demo</title>
+  <meta name="description" content="ASSAY turns model evaluations into versioned, inspectable evidence that can block a merge.">
+  <meta name="theme-color" content="#eef7fa">
+  <title>ASSAY · evidence before merge</title>
+  <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-  <p><a href="demo/">Open the ASSAY comparison report</a>.</p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="wordmark" href="#top" aria-label="ASSAY home">
+      <span class="wordmark-mark" aria-hidden="true">A</span>
+      <span>ASSAY<small>model evaluation laboratory</small></span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="#problem">Problem</a>
+      <a href="#thesis">Thesis</a>
+      <a href="#evidence">Evidence</a>
+      <a href="#method">Method</a>
+      <a href="#limits">Limits</a>
+    </nav>
+    <a class="header-cta" href="demo/">Open the bench <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-register" aria-hidden="true">
+        <span>PROTOCOL / 01</span>
+        <span>CI EVALUATION</span>
+        <span>2026–07</span>
+      </div>
+      <div class="hero-copy">
+        <p class="kicker">One evaluation contract · any predictor</p>
+        <h1>Proof,<br><em>not vibes.</em></h1>
+        <p class="hero-lede">ASSAY compares version-pinned model runs, measures
+          uncertainty, names every changed sample, and gives CI a verdict it can
+          defend.</p>
+        <div class="hero-actions">
+          <a class="primary-link" href="demo/">Run the interactive assay <span>→</span></a>
+          <a class="secondary-link" href="#evidence">Inspect the evidence</a>
+        </div>
+        <p class="trust-line">
+          <span class="status-dot" aria-hidden="true"></span>
+          Keyless replay · standard-library Python · deterministic fixture
+        </p>
+      </div>
+
+      <div class="hero-instrument" aria-label="Preview of a blocked ASSAY result">
+        <div class="instrument-head">
+          <span>Specimen A-0012</span>
+          <strong>MERGE BLOCKED</strong>
+        </div>
+        <div class="chromatography">
+          <div class="chrom-lane"><i class="band blue b1"></i><i class="band red r1"></i></div>
+          <div class="chrom-lane"><i class="band blue b2"></i><i class="band red r2"></i></div>
+          <div class="chrom-lane"><i class="band blue b3"></i><i class="band red r3"></i></div>
+          <div class="chrom-lane"><i class="band blue b4"></i><i class="band red r4"></i></div>
+        </div>
+        <div class="instrument-readout">
+          <div><span>Baseline</span><strong>1.000</strong></div>
+          <div><span>Candidate</span><strong>0.880</strong></div>
+          <div><span>Δ / 95% CI</span><strong>−.120</strong><small>[−.184, −.056]</small></div>
+        </div>
+        <div class="specimen-strip">
+          <span>12</span>
+          <p><strong>specific regressions</strong> retained for review</p>
+          <b aria-hidden="true">BLOCKED</b>
+        </div>
+      </div>
+
+      <div class="hero-metrics">
+        <div><strong>100</strong><span>paired samples</span></div>
+        <div><strong>12</strong><span>seeded regressions</span></div>
+        <div><strong>2</strong><span>content hashes</span></div>
+        <div><strong>$0</strong><span>keyless replay cost</span></div>
+      </div>
+    </section>
+
+    <section class="manifesto" id="problem">
+      <div class="section-index"><span>01</span><b>The problem</b></div>
+      <div class="manifesto-copy">
+        <p class="kicker">Aggregate green is not evidence</p>
+        <h2>A model can improve on average<br>and still break the case that matters.</h2>
+        <p>Model changes are probabilistic, scorer definitions drift, and
+          test datasets quietly mutate. A single score hides all three. Reviewers
+          need the exact before/after specimens, the uncertainty around the
+          change, and proof that both runs used the same measuring instrument.</p>
+      </div>
+      <aside class="red-note">
+        <span>Failure report / 12</span>
+        <p>“Accuracy fell” is a symptom. “These twelve version-pinned samples
+          flipped under the same scorer” is evidence.</p>
+      </aside>
+    </section>
+
+    <section class="refusals" aria-labelledby="refusals-title">
+      <div class="refusal-lead">
+        <p class="kicker">What a useful harness refuses to do</p>
+        <h2 id="refusals-title">Three hard stops.</h2>
+      </div>
+      <article>
+        <span class="refusal-number">01</span>
+        <h3>No unversioned data</h3>
+        <p>Every run pins a content-addressed dataset. A missing or mismatched
+          hash is an error, not a warning.</p>
+        <code>dataset_hash required</code>
+      </article>
+      <article>
+        <span class="refusal-number">02</span>
+        <h3>No cross-scorer diffs</h3>
+        <p>A score only means something under a stable contract. Change the
+          scorer and ASSAY refuses the comparison.</p>
+        <code>scorer hash mismatch</code>
+      </article>
+      <article>
+        <span class="refusal-number">03</span>
+        <h3>No aggregate-only gates</h3>
+        <p>The verdict retains the paired examples that caused it, so a
+          reviewer can investigate before acting.</p>
+        <code>12 samples attached</code>
+      </article>
+    </section>
+
+    <section class="thesis" id="thesis">
+      <div class="section-index light"><span>02</span><b>The thesis</b></div>
+      <div class="thesis-head">
+        <p class="kicker">Different modalities · same experimental object</p>
+        <h2>An LLM answer and a world-model rollout are both predictions of what comes next.</h2>
+      </div>
+      <div class="equation" aria-label="Unified ASSAY sample abstraction">
+        <div><span>Context</span><strong>x</strong><small>prompt / world state</small></div>
+        <b>+</b>
+        <div><span>Action</span><strong>a</strong><small>instruction / control</small></div>
+        <b>→</b>
+        <div class="prediction"><span>Prediction</span><strong>ŷ</strong><small>answer / future state</small></div>
+        <b>↔</b>
+        <div><span>Reference</span><strong>y</strong><small>expected / observed future</small></div>
+        <b>→</b>
+        <div class="score"><span>Score</span><strong>s</strong><small>versioned contract</small></div>
+      </div>
+      <div class="modality-grid">
+        <article>
+          <div class="modality-tag">Language model</div>
+          <h3>“Which tool should the agent call?”</h3>
+          <dl>
+            <div><dt>Context</dt><dd>User request + available tools</dd></div>
+            <div><dt>Action</dt><dd>Prompt template</dd></div>
+            <div><dt>Prediction</dt><dd><code>search</code></dd></div>
+            <div><dt>Reference</dt><dd><code>search</code></dd></div>
+          </dl>
+        </article>
+        <article>
+          <div class="modality-tag red">World model</div>
+          <h3>“What state follows this control?”</h3>
+          <dl>
+            <div><dt>Context</dt><dd>Observed trajectory</dd></div>
+            <div><dt>Action</dt><dd>Control sequence</dd></div>
+            <div><dt>Prediction</dt><dd>Generated future state</dd></div>
+            <div><dt>Reference</dt><dd>Held-out trajectory</dd></div>
+          </dl>
+        </article>
+      </div>
+      <p class="thesis-note">The modality changes. The infrastructure—version,
+        run, score, compare, gate—does not.</p>
+    </section>
+
+    <section class="evidence" id="evidence">
+      <div class="section-index"><span>03</span><b>The evidence</b></div>
+      <div class="evidence-intro">
+        <div>
+          <p class="kicker">Bundled regression fixture · reproducible now</p>
+          <h2>Twelve failures.<br>All twelve found.</h2>
+        </div>
+        <p>The current repository proves its core mechanics on a deterministic
+          100-sample fixture. The candidate deliberately flips the first twelve
+          tool selections. ASSAY finds exactly those twelve, adds zero false
+          positives, computes the paired interval, and blocks.</p>
+      </div>
+
+      <div class="evidence-board">
+        <article class="score-proof">
+          <div class="proof-heading">
+            <span>Paired accuracy</span>
+            <a href="demo/comparison.json">raw JSON ↗</a>
+          </div>
+          <div class="score-row">
+            <b>Baseline</b><div class="score-track"><i style="width:100%"></i></div><strong>1.000</strong>
+          </div>
+          <div class="score-row candidate">
+            <b>Candidate</b><div class="score-track"><i style="width:88%"></i></div><strong>0.880</strong>
+          </div>
+          <div class="interval-plot" aria-label="Delta negative 0.12 with 95 percent confidence interval negative 0.184 to negative 0.056">
+            <div class="axis"><span>−.20</span><span>−.10</span><span>0</span></div>
+            <div class="zero-line"></div>
+            <div class="interval"><i></i><b>−.120</b></div>
+          </div>
+          <p>95% CI <strong>[−0.184, −0.056]</strong> · paired normal approximation</p>
+        </article>
+
+        <article class="plate-proof">
+          <div class="proof-heading"><span>100-sample plate</span><b>12 regressed</b></div>
+          <div class="mini-plate" aria-label="One hundred samples, first twelve regressed">
+            <i class="bad"></i><i class="bad"></i><i class="bad"></i><i class="bad"></i><i class="bad"></i>
+            <i class="bad"></i><i class="bad"></i><i class="bad"></i><i class="bad"></i><i class="bad"></i>
+            <i class="bad"></i><i class="bad"></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </div>
+          <div class="plate-caption"><span><i></i> held</span><span><i class="bad"></i> regressed</span></div>
+        </article>
+
+        <article class="detection-proof">
+          <div class="proof-heading"><span>Detection record</span><b>fixture v1</b></div>
+          <div class="detection-number"><strong>100%</strong><span>seeded regression detection</span></div>
+          <div class="detection-split">
+            <div><strong>12/12</strong><span>detected</span></div>
+            <div><strong>0</strong><span>false positives</span></div>
+          </div>
+          <p class="scope-warning">This is a software regression test, not
+            evidence of performance on naturally occurring failures.</p>
+        </article>
+      </div>
+
+      <div class="world-proof">
+        <div>
+          <p class="kicker">Same machinery · different predictor</p>
+          <h3>Four world-model scorer contracts run on the CPU fixture.</h3>
+          <p>The reference stack separates compounding drift, action grounding,
+            memory through occlusion, and task utility. These are contract tests,
+            not public-checkpoint measurements.</p>
+          <a href="demo/wm-results.json">Open reproducible world-model result →</a>
+        </div>
+        <div class="drift-graph" aria-label="World model drift by horizon: zero, zero, 0.1, 0.3, 0.4">
+          <div class="graph-y"><span>.4</span><span>.2</span><span>0</span></div>
+          <div class="drift-bars">
+            <i style="height:2%"><b>0</b></i>
+            <i style="height:2%"><b>0</b></i>
+            <i style="height:25%"><b>.1</b></i>
+            <i style="height:75%"><b>.3</b></i>
+            <i style="height:100%"><b>.4</b></i>
+          </div>
+          <div class="graph-x"><span>H0</span><span>H1</span><span>H2</span><span>H3</span><span>H4</span></div>
+          <strong class="graph-title">wm/drift · error by horizon</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="journeys" id="journeys">
+      <div class="section-index light"><span>04</span><b>The people</b></div>
+      <div class="journey-head">
+        <p class="kicker">One artifact · four decisions</p>
+        <h2>Built for the whole review chain.</h2>
+      </div>
+      <div class="journey-list">
+        <article>
+          <span>ML / 01</span>
+          <h3>Engineer shipping a change</h3>
+          <p>Runs the suite before a pull request, sees whether the candidate
+            regressed, and opens the exact changed samples.</p>
+          <b>Success → an actionable list, not a score mystery</b>
+        </article>
+        <article>
+          <span>RV / 02</span>
+          <h3>Reviewer deciding merge</h3>
+          <p>Checks the confidence interval, tolerance, hashes, and specimen
+            diffs before accepting the automated gate.</p>
+          <b>Success → evidence survives skeptical review</b>
+        </article>
+        <article>
+          <span>EV / 03</span>
+          <h3>Eval author maintaining quality</h3>
+          <p>Versions the scorer, validates deterministic behavior, and treats a
+            scorer change as a new instrument—not a comparable result.</p>
+          <b>Success → measurement drift cannot masquerade as model drift</b>
+        </article>
+        <article>
+          <span>GV / 04</span>
+          <h3>Governance and infrastructure</h3>
+          <p>Exports a compact chain of custody: run IDs, hashes, method,
+            uncertainty, verdict, changed samples, and documented limits.</p>
+          <b>Success → a repeatable go / no-go record</b>
+        </article>
+      </div>
+    </section>
+
+    <section class="method" id="method">
+      <div class="section-index"><span>05</span><b>The method</b></div>
+      <div class="method-intro">
+        <p class="kicker">From immutable inputs to a reviewable decision</p>
+        <h2>Five operations. No hidden leap.</h2>
+      </div>
+      <ol class="method-flow">
+        <li>
+          <span>01</span><div><h3>Pin</h3><p>Hash the dataset and scorer contract.
+            Refuse incomplete provenance.</p></div>
+        </li>
+        <li>
+          <span>02</span><div><h3>Replay</h3><p>Run baseline and candidate against
+            the same sample IDs and references.</p></div>
+        </li>
+        <li>
+          <span>03</span><div><h3>Score</h3><p>Apply one versioned scorer to every
+            paired prediction.</p></div>
+        </li>
+        <li>
+          <span>04</span><div><h3>Infer</h3><p>Compute the paired delta, interval,
+            and multiple-comparison correction.</p></div>
+        </li>
+        <li>
+          <span>05</span><div><h3>Gate</h3><p>Compare the interval to the declared
+            tolerance and retain every changed specimen.</p></div>
+        </li>
+      </ol>
+
+      <div class="architecture" id="architecture">
+        <div class="architecture-copy">
+          <p class="kicker">Small enough to inspect</p>
+          <h3>Dependency-free reference architecture</h3>
+          <p>The shipped P0 implementation is standard-library Python with a
+            SQLite-first run store, content-addressed contracts, paired
+            comparison engine, structured JSON, and static HTML. It is a working
+            core, not a screenshot of a future service.</p>
+          <a href="https://github.com/Aneesh-Pothuru/assay">Read the source on GitHub ↗</a>
+        </div>
+        <div class="architecture-map" aria-label="ASSAY system architecture">
+          <div><span>01</span><b>Dataset</b><small>hash + samples</small></div>
+          <i>→</i>
+          <div><span>02</span><b>Run</b><small>baseline / candidate</small></div>
+          <i>→</i>
+          <div><span>03</span><b>Scorer</b><small>version contract</small></div>
+          <i>→</i>
+          <div><span>04</span><b>Compare</b><small>CI + sample diff</small></div>
+          <i>→</i>
+          <div class="gate-node"><span>05</span><b>Gate</b><small>exit + evidence</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="limits" id="limits">
+      <div class="section-index"><span>06</span><b>Honest limits</b></div>
+      <div class="limits-head">
+        <div>
+          <p class="kicker">Trust requires a boundary</p>
+          <h2>What this build does<br>and does not prove.</h2>
+        </div>
+        <p>ASSAY labels synthetic evidence as synthetic. The interface may
+          simulate candidate configurations so you can explore the workflow;
+          the repository’s measured claims remain limited to checked-in,
+          deterministic artifacts.</p>
+      </div>
+      <div class="limits-columns">
+        <article>
+          <span class="limit-label yes">Implemented + verified</span>
+          <ul>
+            <li>100-sample keyless replay and blocking exit code</li>
+            <li>Content-addressed datasets and scorers</li>
+            <li>Hard refusal of cross-scorer comparisons</li>
+            <li>Paired confidence interval and correction hook</li>
+            <li>Per-sample regressions and structured report</li>
+            <li>Four CPU-scale world-model scorer contracts</li>
+          </ul>
+        </article>
+        <article>
+          <span class="limit-label no">Not yet claimed</span>
+          <ul>
+            <li>No live Gemini, Groq, or Ollama provider runner</li>
+            <li>No public world-model checkpoint measurement</li>
+            <li>No external benchmark adapter or GPU notebook</li>
+            <li>No public safe-horizon result</li>
+            <li>No provider cost, latency, or nondeterminism claim</li>
+            <li>No research-grade perceptual metric claim</li>
+          </ul>
+        </article>
+      </div>
+      <a class="limits-link" href="https://github.com/Aneesh-Pothuru/assay/blob/main/LIMITS.md">Read the complete limits record →</a>
+    </section>
+
+    <section class="about" id="about">
+      <div class="about-copy">
+        <p class="kicker">About ASSAY</p>
+        <h2>A CI-native evaluation harness for predictors.</h2>
+        <p>ASSAY exists to make model evaluation behave more like serious
+          engineering: fixed inputs, versioned instruments, uncertainty in the
+          open, and decisions traceable to specimens. It does not invent another
+          benchmark. It gives existing benchmarks one reproducible execution and
+          gating contract.</p>
+        <div class="about-links">
+          <a href="https://github.com/Aneesh-Pothuru/assay">GitHub repository ↗</a>
+          <a href="https://github.com/Aneesh-Pothuru/assay/blob/main/docs/BRIEF.md">Build brief ↗</a>
+          <a href="https://github.com/Aneesh-Pothuru/assay/blob/main/docs/USER_JOURNEYS.md">User journeys ↗</a>
+        </div>
+      </div>
+      <div class="cta-dossier">
+        <span>Ready specimen / A-0012</span>
+        <h3>Don’t read another aggregate.</h3>
+        <p>Run the fixture, change the tolerance, step the protocol, and inspect
+          the twelve samples behind the block.</p>
+        <a href="demo/">Enter the evaluation bench <b>→</b></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wordmark inverse">
+      <span class="wordmark-mark" aria-hidden="true">A</span>
+      <span>ASSAY<small>proof before merge</small></span>
+    </div>
+    <p>Open-source reference implementation.<br>Synthetic fixture, honestly labeled.</p>
+    <nav aria-label="Footer navigation">
+      <a href="#top">Top</a>
+      <a href="demo/">Demo</a>
+      <a href="https://github.com/Aneesh-Pothuru/assay">Source</a>
+    </nav>
+  </footer>
 </body>
 </html>
-

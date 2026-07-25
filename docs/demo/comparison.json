@@ -29,5 +29,1108 @@
     "verdict": "BLOCKED"
   },
   "dataset_hash": "sha256:70d3abece3399e80f930e2e07c6448f5e7c0d3f40e10ce2126c87fd3092dee7a",
+  "samples": [
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 0.0,
+      "context": {
+        "request": "select tool for case 000"
+      },
+      "reference": "search",
+      "sample_id": "sample-000"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 0.0,
+      "context": {
+        "request": "select tool for case 001"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-001"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 0.0,
+      "context": {
+        "request": "select tool for case 002"
+      },
+      "reference": "search",
+      "sample_id": "sample-002"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 0.0,
+      "context": {
+        "request": "select tool for case 003"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-003"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 0.0,
+      "context": {
+        "request": "select tool for case 004"
+      },
+      "reference": "search",
+      "sample_id": "sample-004"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 0.0,
+      "context": {
+        "request": "select tool for case 005"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-005"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 0.0,
+      "context": {
+        "request": "select tool for case 006"
+      },
+      "reference": "search",
+      "sample_id": "sample-006"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 0.0,
+      "context": {
+        "request": "select tool for case 007"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-007"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 0.0,
+      "context": {
+        "request": "select tool for case 008"
+      },
+      "reference": "search",
+      "sample_id": "sample-008"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 0.0,
+      "context": {
+        "request": "select tool for case 009"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-009"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 0.0,
+      "context": {
+        "request": "select tool for case 010"
+      },
+      "reference": "search",
+      "sample_id": "sample-010"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 0.0,
+      "context": {
+        "request": "select tool for case 011"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-011"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 012"
+      },
+      "reference": "search",
+      "sample_id": "sample-012"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 013"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-013"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 014"
+      },
+      "reference": "search",
+      "sample_id": "sample-014"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 015"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-015"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 016"
+      },
+      "reference": "search",
+      "sample_id": "sample-016"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 017"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-017"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 018"
+      },
+      "reference": "search",
+      "sample_id": "sample-018"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 019"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-019"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 020"
+      },
+      "reference": "search",
+      "sample_id": "sample-020"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 021"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-021"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 022"
+      },
+      "reference": "search",
+      "sample_id": "sample-022"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 023"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-023"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 024"
+      },
+      "reference": "search",
+      "sample_id": "sample-024"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 025"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-025"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 026"
+      },
+      "reference": "search",
+      "sample_id": "sample-026"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 027"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-027"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 028"
+      },
+      "reference": "search",
+      "sample_id": "sample-028"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 029"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-029"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 030"
+      },
+      "reference": "search",
+      "sample_id": "sample-030"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 031"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-031"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 032"
+      },
+      "reference": "search",
+      "sample_id": "sample-032"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 033"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-033"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 034"
+      },
+      "reference": "search",
+      "sample_id": "sample-034"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 035"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-035"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 036"
+      },
+      "reference": "search",
+      "sample_id": "sample-036"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 037"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-037"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 038"
+      },
+      "reference": "search",
+      "sample_id": "sample-038"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 039"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-039"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 040"
+      },
+      "reference": "search",
+      "sample_id": "sample-040"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 041"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-041"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 042"
+      },
+      "reference": "search",
+      "sample_id": "sample-042"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 043"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-043"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 044"
+      },
+      "reference": "search",
+      "sample_id": "sample-044"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 045"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-045"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 046"
+      },
+      "reference": "search",
+      "sample_id": "sample-046"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 047"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-047"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 048"
+      },
+      "reference": "search",
+      "sample_id": "sample-048"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 049"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-049"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 050"
+      },
+      "reference": "search",
+      "sample_id": "sample-050"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 051"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-051"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 052"
+      },
+      "reference": "search",
+      "sample_id": "sample-052"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 053"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-053"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 054"
+      },
+      "reference": "search",
+      "sample_id": "sample-054"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 055"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-055"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 056"
+      },
+      "reference": "search",
+      "sample_id": "sample-056"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 057"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-057"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 058"
+      },
+      "reference": "search",
+      "sample_id": "sample-058"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 059"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-059"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 060"
+      },
+      "reference": "search",
+      "sample_id": "sample-060"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 061"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-061"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 062"
+      },
+      "reference": "search",
+      "sample_id": "sample-062"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 063"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-063"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 064"
+      },
+      "reference": "search",
+      "sample_id": "sample-064"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 065"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-065"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 066"
+      },
+      "reference": "search",
+      "sample_id": "sample-066"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 067"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-067"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 068"
+      },
+      "reference": "search",
+      "sample_id": "sample-068"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 069"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-069"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 070"
+      },
+      "reference": "search",
+      "sample_id": "sample-070"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 071"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-071"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 072"
+      },
+      "reference": "search",
+      "sample_id": "sample-072"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 073"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-073"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 074"
+      },
+      "reference": "search",
+      "sample_id": "sample-074"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 075"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-075"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 076"
+      },
+      "reference": "search",
+      "sample_id": "sample-076"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 077"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-077"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 078"
+      },
+      "reference": "search",
+      "sample_id": "sample-078"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 079"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-079"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 080"
+      },
+      "reference": "search",
+      "sample_id": "sample-080"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 081"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-081"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 082"
+      },
+      "reference": "search",
+      "sample_id": "sample-082"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 083"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-083"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 084"
+      },
+      "reference": "search",
+      "sample_id": "sample-084"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 085"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-085"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 086"
+      },
+      "reference": "search",
+      "sample_id": "sample-086"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 087"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-087"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 088"
+      },
+      "reference": "search",
+      "sample_id": "sample-088"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 089"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-089"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 090"
+      },
+      "reference": "search",
+      "sample_id": "sample-090"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 091"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-091"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 092"
+      },
+      "reference": "search",
+      "sample_id": "sample-092"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 093"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-093"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 094"
+      },
+      "reference": "search",
+      "sample_id": "sample-094"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 095"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-095"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 096"
+      },
+      "reference": "search",
+      "sample_id": "sample-096"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 097"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-097"
+    },
+    {
+      "baseline_prediction": "search",
+      "baseline_score": 1.0,
+      "candidate_prediction": "search",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 098"
+      },
+      "reference": "search",
+      "sample_id": "sample-098"
+    },
+    {
+      "baseline_prediction": "lookup",
+      "baseline_score": 1.0,
+      "candidate_prediction": "lookup",
+      "candidate_score": 1.0,
+      "context": {
+        "request": "select tool for case 099"
+      },
+      "reference": "lookup",
+      "sample_id": "sample-099"
+    }
+  ],
+  "scope": "Bundled deterministic fixture. No real-provider, public-checkpoint, latency, cost, or nondeterminism claim.",
   "scorer_hash": "sha256:f11df01ba73ed424fa4f58e3e87a10e54e17945625589870e103599da4e77358"
 }

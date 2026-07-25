@@ -140,11 +140,19 @@ def compare_runs(
         raise ValueError("cannot compare runs from different dataset versions")
     if baseline.scorer_hash != candidate.scorer_hash:
         raise ValueError("cross-scorer-version diff is forbidden")
+    if not 0.0 < alpha < 1.0:
+        raise ValueError("alpha must be between 0 and 1")
     if metric_count < 1:
         raise ValueError("metric_count must be positive")
+    if tolerance < 0.0:
+        raise ValueError("tolerance must be non-negative")
 
     base_by_id = {sample.sample_id: sample for sample in baseline.samples}
     cand_by_id = {sample.sample_id: sample for sample in candidate.samples}
+    if len(base_by_id) != len(baseline.samples):
+        raise ValueError("baseline run contains duplicate sample IDs")
+    if len(cand_by_id) != len(candidate.samples):
+        raise ValueError("candidate run contains duplicate sample IDs")
     if base_by_id.keys() != cand_by_id.keys():
         raise ValueError("sample IDs differ between runs")
     if not base_by_id:
@@ -167,8 +175,18 @@ def compare_runs(
     regressions: list[str] = []
     improvements: list[str] = []
     for sample_id in ids:
-        before = base_by_id[sample_id].scores[metric]
-        after = cand_by_id[sample_id].scores[metric]
+        base_sample = base_by_id[sample_id]
+        cand_sample = cand_by_id[sample_id]
+        if (
+            base_sample.context != cand_sample.context
+            or base_sample.action != cand_sample.action
+            or base_sample.reference != cand_sample.reference
+        ):
+            raise ValueError(f"paired sample definition differs for {sample_id}")
+        before = base_sample.scores[metric]
+        after = cand_sample.scores[metric]
+        if not math.isfinite(before) or not math.isfinite(after):
+            raise ValueError(f"non-finite {metric} score for {sample_id}")
         paired.append(after - before)
         if after < before:
             regressions.append(sample_id)
@@ -188,7 +206,7 @@ def compare_runs(
         reason = "paired confidence interval excludes the allowed tolerance"
     else:
         verdict = Verdict.PASSED
-        reason = "regression threshold was not crossed"
+        reason = "upper confidence bound is at or above the allowed tolerance"
 
     return Comparison(
         metric=metric,
