@@ -20,6 +20,7 @@
       <a href="#thesis">Thesis</a>
       <a href="#evidence">Evidence</a>
       <a href="#method">Method</a>
+      <a href="#service">Service</a>
       <a href="#limits">Limits</a>
     </nav>
     <a class="header-cta" href="demo/">Open the bench <span aria-hidden="true">↗</span></a>
@@ -328,8 +329,9 @@
           <h3>Dependency-free reference architecture</h3>
           <p>The shipped P0 implementation is standard-library Python with a
             SQLite-first run store, content-addressed contracts, paired
-            comparison engine, structured JSON, and static HTML. It is a working
-            core, not a screenshot of a future service.</p>
+            comparison engine, structured JSON, a local HTTP API, and a packaged
+            operator UI. Both CLI and API invoke the same working comparison
+            service.</p>
           <a href="https://github.com/Aneesh-Pothuru/assay">Read the source on GitHub ↗</a>
         </div>
         <div class="architecture-map" aria-label="ASSAY system architecture">
@@ -346,17 +348,58 @@
       </div>
     </section>
 
+    <section class="service" id="service">
+      <div class="section-index light"><span>06</span><b>The operating path</b></div>
+      <div class="service-intro">
+        <div>
+          <p class="kicker">Replay in public · operate locally</p>
+          <h2>One contract.<br>Two honest surfaces.</h2>
+        </div>
+        <p>The public bench is a deterministic, zero-keyway to understand the
+          interaction. Install ASSAY to ingest your own already-scored runs,
+          execute the real comparison engine, and retain evidence in SQLite.</p>
+      </div>
+      <div class="service-grid">
+        <article class="surface-card replay-card">
+          <span>Public / static</span>
+          <h3>GitHub Pages replay</h3>
+          <p>Embedded fixture data, browser-only controls, and no persistence.
+            Every replay state is labeled; it never claims to contact a model or
+            the installed service.</p>
+          <a href="demo/">Explore the fixture →</a>
+        </article>
+        <article class="surface-card live-card">
+          <span>Installed / operational</span>
+          <h3>Local evaluation service</h3>
+          <p>Verified run ingestion, immutable contracts, durable comparisons,
+            health/readiness probes, a same-origin operator UI, and structured
+            API errors.</p>
+          <code>assay serve --seed-demo --db .assay/runs.sqlite</code>
+          <a href="https://github.com/Aneesh-Pothuru/assay/blob/main/docs/OPERATIONS.md">Open the operations guide ↗</a>
+        </article>
+      </div>
+      <div class="service-status" aria-label="Installed service flow">
+        <div><b>01</b><span>POST runs</span><small>verify hashes</small></div>
+        <i>→</i>
+        <div><b>02</b><span>POST comparison</span><small>run paired engine</small></div>
+        <i>→</i>
+        <div><b>03</b><span>GET evidence</span><small>persist + inspect</small></div>
+        <i>→</i>
+        <div><b>04</b><span>Gate</span><small>exit 0 / 1 / 2</small></div>
+      </div>
+    </section>
+
     <section class="limits" id="limits">
-      <div class="section-index"><span>06</span><b>Honest limits</b></div>
+      <div class="section-index"><span>07</span><b>Honest limits</b></div>
       <div class="limits-head">
         <div>
           <p class="kicker">Trust requires a boundary</p>
           <h2>What this build does<br>and does not prove.</h2>
         </div>
-        <p>ASSAY labels synthetic evidence as synthetic. The interface may
-          simulate candidate configurations so you can explore the workflow;
-          the repository’s measured claims remain limited to checked-in,
-          deterministic artifacts.</p>
+        <p>The public interface labels synthetic evidence as synthetic. The
+          installed service really ingests, compares, and persists user-supplied
+          scored runs, but it does not execute providers. Measured claims remain
+          limited to checked-in, deterministic artifacts.</p>
       </div>
       <div class="limits-columns">
         <article>
@@ -368,6 +411,7 @@
             <li>Paired confidence interval and correction hook</li>
             <li>Per-sample regressions and structured report</li>
             <li>Four CPU-scale world-model scorer contracts</li>
+            <li>Local API, SQLite evidence, probes, and operator UI</li>
           </ul>
         </article>
         <article>
@@ -398,6 +442,7 @@
           <a href="https://github.com/Aneesh-Pothuru/assay">GitHub repository ↗</a>
           <a href="https://github.com/Aneesh-Pothuru/assay/blob/main/docs/BRIEF.md">Build brief ↗</a>
           <a href="https://github.com/Aneesh-Pothuru/assay/blob/main/docs/USER_JOURNEYS.md">User journeys ↗</a>
+          <a href="https://github.com/Aneesh-Pothuru/assay/blob/main/docs/OPERATIONS.md">Operations ↗</a>
         </div>
       </div>
       <div class="cta-dossier">
@@ -419,6 +464,7 @@
     <nav aria-label="Footer navigation">
       <a href="#top">Top</a>
       <a href="demo/">Demo</a>
+      <a href="https://github.com/Aneesh-Pothuru/assay/blob/main/docs/OPERATIONS.md">Operate</a>
       <a href="https://github.com/Aneesh-Pothuru/assay">Source</a>
     </nav>
   </footer>

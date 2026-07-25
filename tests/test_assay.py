@@ -44,9 +44,10 @@ class VersioningTests(unittest.TestCase):
 
     def test_sqlite_store_round_trips_version_pins(self):
         before, _ = demo_runs()
+        scorer = ScorerSpec.create("exact_tool_selection", "1.0.0")
         store = RunStore()
         try:
-            store.save(before)
+            store.save(before, scorer)
             payload = store.get_payload(before.run_id)
         finally:
             store.close()

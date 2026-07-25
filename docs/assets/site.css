@@ -422,6 +422,71 @@ h1 em { color: var(--blue); font-style: normal; font-weight: 900; }
 .architecture-map .gate-node small { color: var(--ink); }
 .architecture-map > i { color: var(--lime); font-style: normal; }
 
+.service {
+  padding: 120px clamp(18px, 5vw, 80px);
+  color: white;
+  background:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
+    var(--ink);
+  background-size: 28px 28px;
+}
+.service > * { max-width: 1400px; margin-left: auto; margin-right: auto; }
+.service .section-index { margin-bottom: 70px; }
+.service .kicker { color: var(--lime); }
+.service-intro { display: grid; grid-template-columns: 1.1fr .9fr; gap: 70px; align-items: end; }
+.service-intro > p { color: #c6d7df; font-size: 18px; }
+.service-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 18px; margin-top: 55px; }
+.surface-card {
+  min-height: 320px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #71828c;
+  background: #1c3745;
+}
+.surface-card > span {
+  color: var(--lime);
+  font: 900 9px "Courier New", monospace;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.surface-card h3 { margin: 45px 0 12px; font-size: 31px; line-height: 1; }
+.surface-card p { color: #c6d7df; }
+.surface-card a {
+  margin-top: auto;
+  color: var(--lime);
+  font: 900 9px "Courier New", monospace;
+  text-transform: uppercase;
+}
+.surface-card code {
+  margin: 15px 0 24px;
+  padding: 13px;
+  border: 1px solid #7196a7;
+  color: white;
+  background: #0d222d;
+  font-size: 11px;
+  overflow-x: auto;
+}
+.replay-card { border-top: 5px solid var(--red); }
+.live-card { border-top: 5px solid var(--lime); }
+.service-status {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  gap: 12px;
+  align-items: center;
+  margin-top: 18px;
+  padding: 20px;
+  border: 1px solid #71828c;
+  background: #0d222d;
+}
+.service-status div { min-width: 0; }
+.service-status b, .service-status span, .service-status small { display: block; }
+.service-status b { color: var(--red); font: 900 9px "Courier New", monospace; }
+.service-status span { margin: 5px 0; font: 900 11px "Courier New", monospace; text-transform: uppercase; }
+.service-status small { color: #a9c0ca; font-size: 10px; }
+.service-status i { color: var(--lime); font-style: normal; }
+
 .limits { padding: 120px clamp(18px, 5vw, 80px); border-top: 2px solid var(--ink); background: var(--blue-soft); }
 .limits > * { max-width: 1400px; margin-left: auto; margin-right: auto; }
 .limits .section-index { margin-bottom: 70px; }
@@ -479,6 +544,7 @@ h1 em { color: var(--blue); font-style: normal; font-weight: 900; }
   .journey-list { grid-template-columns: 1fr 1fr; }
   .journey-list article { border-bottom: 1px solid #a9bbff; }
   .architecture { grid-template-columns: 1fr; }
+  .service-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 760px) {
   .site-header { height: 68px; gap: 12px; }
@@ -495,7 +561,9 @@ h1 em { color: var(--blue); font-style: normal; font-weight: 900; }
   .manifesto .red-note { grid-column: 1; }
   .refusals, .thesis-head, .modality-grid, .evidence-intro, .evidence-board,
   .world-proof, .journey-head, .journey-list, .method-intro, .limits-head,
-  .limits-columns, .about, .site-footer { grid-template-columns: 1fr; }
+  .limits-columns, .about, .site-footer, .service-intro, .service-grid {
+    grid-template-columns: 1fr;
+  }
   .refusals > * { min-height: 280px; border-right: 0; }
   .equation { grid-template-columns: 1fr; }
   .equation > b { transform: rotate(90deg); text-align: center; }
@@ -506,6 +574,8 @@ h1 em { color: var(--blue); font-style: normal; font-weight: 900; }
   .method-flow li > span { padding: 16px 8px; font-size: 28px; }
   .method-flow li div { grid-template-columns: 1fr; padding: 16px; gap: 5px; }
   .architecture { padding: 25px; }
+  .service-status { grid-template-columns: 1fr; }
+  .service-status i { transform: rotate(90deg); text-align: center; }
   .about-copy { padding: 80px 25px; }
   .site-footer { align-items: start; }
 }

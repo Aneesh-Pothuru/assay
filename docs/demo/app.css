@@ -145,6 +145,22 @@ h1 {
   text-transform: uppercase;
 }
 .bench-stamp strong { margin: 3px 0; font-size: 30px; }
+.replay-banner {
+  margin-bottom: 22px;
+  padding: 13px 16px;
+  display: grid;
+  grid-template-columns: auto minmax(0,1fr) auto;
+  gap: 18px;
+  align-items: center;
+  border: 1px solid var(--blue);
+  border-radius: 7px;
+  background: var(--blue-soft);
+}
+.replay-banner div { display: grid; }
+.replay-banner strong, .replay-banner a { color: var(--blue-dark); font: 900 9px "Courier New", monospace; text-transform: uppercase; }
+.replay-banner span { color: var(--muted); font-size: 10px; }
+.replay-banner p { margin: 0; font-size: 12px; }
+.replay-banner code { white-space: nowrap; }
 
 .lab-layout {
   display: grid;
@@ -450,6 +466,7 @@ button:disabled {
   .run-identity span:not(.live-pip), .run-identity a { display: none; }
   main { padding-top: 20px; }
   .bench-heading { grid-template-columns: 1fr; }
+  .replay-banner { grid-template-columns: 1fr; }
   .bench-stamp { width: 180px; }
   .field-pair, .result-grid, .diff-columns { grid-template-columns: 1fr; }
   .diff-columns div + div { border-left: 0; border-top: 1px solid var(--line); }

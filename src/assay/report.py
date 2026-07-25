@@ -36,7 +36,7 @@ APP_SHELL = """<!doctype html>
     </a>
     <div class="run-identity">
       <span class="live-pip" aria-hidden="true"></span>
-      <span id="header-status">Ready for specimen</span>
+      <span id="header-status">Replay mode · embedded fixture</span>
       <a href="../#method">Protocol 01</a>
     </div>
   </header>
@@ -47,7 +47,8 @@ APP_SHELL = """<!doctype html>
         <p class="kicker">CI specimen / deterministic replay</p>
         <h1 id="bench-title">Model change assay</h1>
         <p>Pair two version-pinned runs. Expose the uncertainty. Decide whether
-          the evidence permits a merge.</p>
+          the evidence permits a merge. This Pages build replays embedded data;
+          it does not call the installed local service.</p>
       </div>
       <div class="bench-stamp">
         <span>ASSAY NO.</span>
@@ -55,6 +56,13 @@ APP_SHELL = """<!doctype html>
         <span>100 paired samples</span>
       </div>
     </section>
+
+    <aside class="replay-banner" aria-label="Replay mode disclosure">
+      <div><strong>STATIC REPLAY</strong><span>Browser-only interaction over deterministic fixtures</span></div>
+      <p>For persisted user runs and the real HTTP/CLI path, install the package
+        and run <code>assay serve --seed-demo</code>.</p>
+      <a href="https://github.com/Aneesh-Pothuru/assay/blob/main/docs/OPERATIONS.md">Local service operations ↗</a>
+    </aside>
 
     <section class="lab-layout">
       <aside class="protocol-panel" aria-labelledby="protocol-title">
@@ -267,11 +275,12 @@ APP_SHELL = """<!doctype html>
   </main>
 
   <footer class="app-footer">
-    <span>Deterministic synthetic fixture · no provider claim</span>
+    <span>Static deterministic replay · no backend or provider claim</span>
     <nav aria-label="Footer">
       <a href="../#evidence">Proof</a>
       <a href="../#limits">Limits</a>
       <a href="comparison.json">Raw comparison</a>
+      <a href="https://github.com/Aneesh-Pothuru/assay/blob/main/docs/OPERATIONS.md">Live path</a>
       <a href="https://github.com/Aneesh-Pothuru/assay">Source</a>
     </nav>
   </footer>

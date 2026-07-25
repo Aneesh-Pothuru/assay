@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "assay-eval"
-version = "0.1.0"
+version = "0.2.0"
 description = "Versioned evaluation and deterministic regression gates for language and world models"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -21,3 +21,5 @@ assay = "assay.cli:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+"assay.web" = ["*.html", "*.css", "*.js"]

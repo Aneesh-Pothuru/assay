@@ -5,11 +5,13 @@ import json
 import math
 import sqlite3
 import statistics
+import threading
 from dataclasses import asdict, dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
-from .schemas.loopkit import Run, Sample, Verdict
+from .schemas.loopkit import Run, Sample, Verdict, validate_content_hash
 
 
 def canonical_hash(value: Any) -> str:
@@ -17,6 +19,30 @@ def canonical_hash(value: Any) -> str:
         value, sort_keys=True, separators=(",", ":"), ensure_ascii=True
     ).encode("utf-8")
     return "sha256:" + hashlib.sha256(payload).hexdigest()
+
+
+def utc_now() -> str:
+    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+
+
+def dataset_records_for_run(run: Run) -> list[dict[str, Any]]:
+    return [
+        {
+            "sample_id": sample.sample_id,
+            "context": sample.context,
+            "action": sample.action,
+            "reference": sample.reference,
+        }
+        for sample in run.samples
+    ]
+
+
+def validate_run_dataset_hash(run: Run) -> None:
+    actual = canonical_hash(dataset_records_for_run(run))
+    if run.dataset_hash != actual:
+        raise ValueError(
+            f"run dataset hash mismatch: declared {run.dataset_hash}, actual {actual}"
+        )
 
 
 @dataclass(frozen=True)
@@ -59,12 +85,49 @@ class ScorerSpec:
         digest = canonical_hash({"name": name, "version": version, "config": config})
         return cls(name=name, version=version, config=config, content_hash=digest)
 
+    @classmethod
+    def from_payload(cls, payload: dict[str, Any]) -> "ScorerSpec":
+        if not isinstance(payload, dict):
+            raise ValueError("scorer must be an object")
+        name = payload.get("name")
+        version = payload.get("version")
+        config = payload.get("config", {})
+        if not isinstance(name, str) or not name.strip():
+            raise ValueError("scorer name is required")
+        if not isinstance(version, str) or not version.strip():
+            raise ValueError("scorer version is required")
+        if not isinstance(config, dict):
+            raise ValueError("scorer config must be an object")
+        scorer = cls.create(name, version, config)
+        declared = validate_content_hash(payload.get("scorer_hash"), "scorer_hash")
+        if scorer.content_hash != declared:
+            raise ValueError(
+                f"scorer hash mismatch: declared {declared}, actual {scorer.content_hash}"
+            )
+        return scorer
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "name": self.name,
+            "version": self.version,
+            "config": self.config,
+            "scorer_hash": self.content_hash,
+        }
+
 
 class RunStore:
-    """Small SQLite-first store for portable run records."""
+    """Thread-safe SQLite store for immutable contracts, runs, and evidence."""
 
     def __init__(self, path: str | Path = ":memory:") -> None:
-        self.connection = sqlite3.connect(str(path))
+        self.path = str(path)
+        if self.path != ":memory:":
+            Path(self.path).expanduser().resolve().parent.mkdir(parents=True, exist_ok=True)
+        self._lock = threading.RLock()
+        self.connection = sqlite3.connect(self.path, check_same_thread=False)
+        self.connection.execute("PRAGMA busy_timeout = 5000")
+        self.connection.execute("PRAGMA foreign_keys = ON")
+        if self.path != ":memory:":
+            self.connection.execute("PRAGMA journal_mode = WAL")
         self.connection.execute(
             """
             CREATE TABLE IF NOT EXISTS runs (
@@ -76,34 +139,246 @@ class RunStore:
             )
             """
         )
-
-    def save(self, run: Run) -> None:
         self.connection.execute(
             """
-            INSERT OR REPLACE INTO runs
-                (run_id, dataset_hash, scorer_hash, model_id, payload_json)
-            VALUES (?, ?, ?, ?, ?)
-            """,
-            (
-                run.run_id,
-                run.dataset_hash,
-                run.scorer_hash,
-                run.model_id,
-                json.dumps(run.to_dict(), sort_keys=True),
-            ),
+            CREATE TABLE IF NOT EXISTS datasets (
+                dataset_hash TEXT PRIMARY KEY,
+                payload_json TEXT NOT NULL
+            )
+            """
         )
+        self.connection.execute(
+            """
+            CREATE TABLE IF NOT EXISTS scorers (
+                scorer_hash TEXT PRIMARY KEY,
+                name TEXT NOT NULL,
+                version TEXT NOT NULL,
+                payload_json TEXT NOT NULL
+            )
+            """
+        )
+        self.connection.execute(
+            """
+            CREATE TABLE IF NOT EXISTS comparisons (
+                comparison_id TEXT PRIMARY KEY,
+                baseline_run_id TEXT NOT NULL,
+                candidate_run_id TEXT NOT NULL,
+                verdict TEXT NOT NULL,
+                payload_json TEXT NOT NULL,
+                FOREIGN KEY (baseline_run_id) REFERENCES runs(run_id),
+                FOREIGN KEY (candidate_run_id) REFERENCES runs(run_id)
+            )
+            """
+        )
+        self.connection.execute("PRAGMA user_version = 1")
         self.connection.commit()
 
-    def get_payload(self, run_id: str) -> dict[str, Any]:
-        row = self.connection.execute(
-            "SELECT payload_json FROM runs WHERE run_id = ?", (run_id,)
+    @staticmethod
+    def _stable_json(payload: Any) -> str:
+        return json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False)
+
+    def is_ready(self) -> bool:
+        try:
+            with self._lock:
+                row = self.connection.execute("SELECT 1").fetchone()
+            return row == (1,)
+        except sqlite3.Error:
+            return False
+
+    def _save_immutable(
+        self,
+        *,
+        table: str,
+        key_column: str,
+        key: str,
+        payload_json: str,
+        insert_sql: str,
+        values: tuple[Any, ...],
+    ) -> bool:
+        existing = self.connection.execute(
+            f"SELECT payload_json FROM {table} WHERE {key_column} = ?", (key,)
         ).fetchone()
+        if existing is not None:
+            if existing[0] != payload_json:
+                raise ValueError(f"{key_column} {key} already exists with different content")
+            return False
+        self.connection.execute(insert_sql, values)
+        return True
+
+    def save(self, run: Run, scorer: ScorerSpec | None = None) -> bool:
+        validate_run_dataset_hash(run)
+        if scorer is not None and scorer.content_hash != run.scorer_hash:
+            raise ValueError(
+                "run scorer hash does not match the supplied scorer contract"
+            )
+        dataset_payload = {
+            "dataset_hash": run.dataset_hash,
+            "samples": dataset_records_for_run(run),
+        }
+        run_json = self._stable_json(run.to_dict())
+        with self._lock:
+            try:
+                self.connection.execute("BEGIN")
+                self._save_immutable(
+                    table="datasets",
+                    key_column="dataset_hash",
+                    key=run.dataset_hash,
+                    payload_json=self._stable_json(dataset_payload),
+                    insert_sql=(
+                        "INSERT INTO datasets (dataset_hash, payload_json) VALUES (?, ?)"
+                    ),
+                    values=(run.dataset_hash, self._stable_json(dataset_payload)),
+                )
+                if scorer is not None:
+                    scorer_json = self._stable_json(scorer.to_dict())
+                    self._save_immutable(
+                        table="scorers",
+                        key_column="scorer_hash",
+                        key=scorer.content_hash,
+                        payload_json=scorer_json,
+                        insert_sql=(
+                            "INSERT INTO scorers "
+                            "(scorer_hash, name, version, payload_json) VALUES (?, ?, ?, ?)"
+                        ),
+                        values=(
+                            scorer.content_hash,
+                            scorer.name,
+                            scorer.version,
+                            scorer_json,
+                        ),
+                    )
+                elif self.connection.execute(
+                    "SELECT 1 FROM scorers WHERE scorer_hash = ?", (run.scorer_hash,)
+                ).fetchone() is None:
+                    raise ValueError(
+                        "scorer contract is not registered; supply the versioned scorer"
+                    )
+                created = self._save_immutable(
+                    table="runs",
+                    key_column="run_id",
+                    key=run.run_id,
+                    payload_json=run_json,
+                    insert_sql=(
+                        "INSERT INTO runs "
+                        "(run_id, dataset_hash, scorer_hash, model_id, payload_json) "
+                        "VALUES (?, ?, ?, ?, ?)"
+                    ),
+                    values=(
+                        run.run_id,
+                        run.dataset_hash,
+                        run.scorer_hash,
+                        run.model_id,
+                        run_json,
+                    ),
+                )
+                self.connection.commit()
+                return created
+            except Exception:
+                self.connection.rollback()
+                raise
+
+    def get_payload(self, run_id: str) -> dict[str, Any]:
+        with self._lock:
+            row = self.connection.execute(
+                "SELECT payload_json FROM runs WHERE run_id = ?", (run_id,)
+            ).fetchone()
         if row is None:
             raise KeyError(run_id)
         return json.loads(row[0])
 
+    def get(self, run_id: str) -> Run:
+        return Run.from_dict(self.get_payload(run_id))
+
+    def list_runs(self) -> list[dict[str, Any]]:
+        with self._lock:
+            rows = self.connection.execute(
+                """
+                SELECT run_id, dataset_hash, scorer_hash, model_id, payload_json
+                FROM runs ORDER BY run_id
+                """
+            ).fetchall()
+        result = []
+        for run_id, dataset_hash, scorer_hash, model_id, payload_json in rows:
+            payload = json.loads(payload_json)
+            result.append(
+                {
+                    "run_id": run_id,
+                    "dataset_hash": dataset_hash,
+                    "scorer_hash": scorer_hash,
+                    "model_id": model_id,
+                    "sample_count": len(payload.get("samples", [])),
+                    "metadata": payload.get("metadata", {}),
+                }
+            )
+        return result
+
+    def save_comparison(self, evidence: dict[str, Any]) -> bool:
+        comparison_id = str(evidence["comparison_id"])
+        payload_json = self._stable_json(evidence)
+        with self._lock:
+            try:
+                self.connection.execute("BEGIN")
+                created = self._save_immutable(
+                    table="comparisons",
+                    key_column="comparison_id",
+                    key=comparison_id,
+                    payload_json=payload_json,
+                    insert_sql=(
+                        "INSERT INTO comparisons "
+                        "(comparison_id, baseline_run_id, candidate_run_id, verdict, payload_json) "
+                        "VALUES (?, ?, ?, ?, ?)"
+                    ),
+                    values=(
+                        comparison_id,
+                        evidence["baseline_run_id"],
+                        evidence["candidate_run_id"],
+                        evidence["comparison"]["verdict"],
+                        payload_json,
+                    ),
+                )
+                self.connection.commit()
+                return created
+            except Exception:
+                self.connection.rollback()
+                raise
+
+    def get_comparison(self, comparison_id: str) -> dict[str, Any]:
+        with self._lock:
+            row = self.connection.execute(
+                "SELECT payload_json FROM comparisons WHERE comparison_id = ?",
+                (comparison_id,),
+            ).fetchone()
+        if row is None:
+            raise KeyError(comparison_id)
+        return json.loads(row[0])
+
+    def list_comparisons(self) -> list[dict[str, Any]]:
+        with self._lock:
+            rows = self.connection.execute(
+                """
+                SELECT comparison_id, baseline_run_id, candidate_run_id, verdict
+                FROM comparisons ORDER BY comparison_id
+                """
+            ).fetchall()
+        return [
+            {
+                "comparison_id": item[0],
+                "baseline_run_id": item[1],
+                "candidate_run_id": item[2],
+                "verdict": item[3],
+            }
+            for item in rows
+        ]
+
     def close(self) -> None:
-        self.connection.close()
+        with self._lock:
+            self.connection.close()
+
+    def __enter__(self) -> "RunStore":
+        return self
+
+    def __exit__(self, *_args: object) -> None:
+        self.close()
 
 
 @dataclass(frozen=True)
@@ -124,6 +399,10 @@ class Comparison:
     def to_dict(self) -> dict[str, Any]:
         result = asdict(self)
         result["verdict"] = self.verdict.value
+        for key in ("baseline", "candidate", "delta", "ci_low", "ci_high"):
+            value = result[key]
+            if isinstance(value, float) and not math.isfinite(value):
+                result[key] = None
         return result
 
 

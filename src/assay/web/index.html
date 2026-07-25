@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#eef7fa">
+  <meta name="description" content="Local ASSAY operator UI for persisted, version-pinned comparisons.">
+  <title>ASSAY local operator</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to operator controls</a>
+  <header class="topbar">
+    <div class="brand"><span aria-hidden="true">A</span><b>ASSAY</b><small>local operator</small></div>
+    <div class="service-state"><i id="service-pip" aria-hidden="true"></i><span id="service-state">Checking readiness</span></div>
+  </header>
+
+  <main id="main">
+    <section class="intro">
+      <div>
+        <p class="eyebrow">Installed service · durable evidence</p>
+        <h1>Comparison instrument</h1>
+        <p>This surface reads immutable runs from the local SQLite service and
+          invokes the same comparison engine as the CLI. It is not the static
+          GitHub Pages replay.</p>
+      </div>
+      <div class="instance">
+        <span>API</span><code>/api/v1</code>
+        <span>Persistence</span><code id="run-count">— runs</code>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <form id="compare-form" class="control-panel">
+        <div class="tab">01 / comparison contract</div>
+        <label for="baseline">Baseline run</label>
+        <select id="baseline" required></select>
+        <label for="candidate">Candidate run</label>
+        <select id="candidate" required></select>
+        <div class="field-grid">
+          <div><label for="metric">Metric</label><input id="metric" value="accuracy" required></div>
+          <div><label for="tolerance">Tolerance</label><input id="tolerance" type="number" min="0" step="0.01" value="0"></div>
+        </div>
+        <div class="pin-readout">
+          <span>Baseline dataset</span><code id="baseline-dataset">—</code>
+          <span>Candidate dataset</span><code id="candidate-dataset">—</code>
+          <span>Baseline scorer</span><code id="baseline-scorer">—</code>
+          <span>Candidate scorer</span><code id="candidate-scorer">—</code>
+        </div>
+        <div class="actions">
+          <button class="primary" id="compare-button" type="submit">Run persisted comparison</button>
+          <button id="refresh-button" type="button">Refresh runs</button>
+        </div>
+        <p class="control-note">Mismatched dataset, scorer, or sample contracts
+          stop before inference and never produce exportable evidence.</p>
+      </form>
+
+      <div class="results">
+        <section class="verdict-card" id="verdict-card" aria-live="polite">
+          <div>
+            <div class="tab">02 / gate result</div>
+            <span class="verdict" id="verdict">NOT RUN</span>
+            <p id="verdict-reason">Choose two persisted runs and start a comparison.</p>
+          </div>
+          <dl>
+            <div><dt>Baseline</dt><dd id="baseline-score">—</dd></div>
+            <div><dt>Candidate</dt><dd id="candidate-score">—</dd></div>
+            <div><dt>Delta</dt><dd id="delta-score">—</dd></div>
+            <div><dt>95% CI</dt><dd id="ci-score">—</dd></div>
+          </dl>
+        </section>
+
+        <section class="error-card" id="error-card" hidden aria-live="assertive">
+          <div class="tab">Contract stopped</div>
+          <h2 id="error-code">NO EVIDENCE</h2>
+          <p id="error-message"></p>
+          <p>Select runs with identical dataset and scorer pins, then retry. The
+            failed request is not stored as a comparison.</p>
+        </section>
+
+        <section class="evidence-card">
+          <div class="evidence-head">
+            <div><div class="tab">03 / specimen evidence</div><h2>Paired samples</h2></div>
+            <div class="evidence-actions">
+              <button id="download-button" disabled>Download evidence.json</button>
+            </div>
+          </div>
+          <div class="filters" role="group" aria-label="Filter specimens">
+            <button class="filter active" type="button" data-filter="all">All <span id="all-count">0</span></button>
+            <button class="filter" type="button" data-filter="regressed">Regressed <span id="regressed-count">0</span></button>
+            <button class="filter" type="button" data-filter="improved">Improved <span id="improved-count">0</span></button>
+            <button class="filter" type="button" data-filter="held">Held <span id="held-count">0</span></button>
+          </div>
+          <div class="specimen-layout">
+            <div id="sample-plate" class="sample-plate" aria-label="Selectable persisted sample evidence"></div>
+            <aside class="drawer">
+              <span class="drawer-label">Selected specimen</span>
+              <h3 id="sample-title">No evidence loaded</h3>
+              <dl>
+                <div><dt>Status</dt><dd id="sample-status">—</dd></div>
+                <div><dt>Score</dt><dd id="sample-score">—</dd></div>
+              </dl>
+              <span class="drawer-label">Context</span><code id="sample-context">—</code>
+              <span class="drawer-label">Reference</span><code id="sample-reference">—</code>
+              <div class="prediction-grid">
+                <div><span class="drawer-label">Baseline</span><code id="sample-baseline">—</code></div>
+                <div><span class="drawer-label">Candidate</span><code id="sample-candidate">—</code></div>
+              </div>
+            </aside>
+          </div>
+          <footer><span id="evidence-id">No comparison evidence stored</span><a href="/api/v1/openapi.json">OpenAPI contract</a></footer>
+        </section>
+      </div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -8,6 +8,7 @@ from .core import (
     compare_runs,
     demo_runs,
 )
+from .service import EvaluationService
 
 __all__ = [
     "Comparison",
@@ -16,5 +17,6 @@ __all__ = [
     "ScorerSpec",
     "compare_runs",
     "demo_runs",
+    "EvaluationService",
 ]
-__version__ = "0.1.0"
+__version__ = "0.2.0"

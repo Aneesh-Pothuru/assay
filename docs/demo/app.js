@@ -197,7 +197,9 @@
       "Gate issued. Inspect the specimens before accepting the decision."
     ];
     $("#process-copy").textContent = state.phase < 0 ? "Awaiting a run. No verdict has been issued." : copy[state.phase];
-    $("#header-status").textContent = state.phase < 4 ? (state.phase < 0 ? "Ready for specimen" : `Protocol ${state.phase + 1} of 5`) : "Evidence package ready";
+    $("#header-status").textContent = state.phase < 4
+      ? (state.phase < 0 ? "Replay ready · embedded fixture" : `Replay protocol ${state.phase + 1} of 5`)
+      : "Replay evidence package ready";
     if (state.phase >= 1) renderPlate();
     if (state.phase >= 2) updateMeasurements();
     if (state.phase >= 3) drawChart();
@@ -242,7 +244,7 @@
     state.result = null;
     state.running = false;
     $("#run-button").disabled = false;
-    $("#header-status").textContent = "Contract error · merge withheld";
+    $("#header-status").textContent = "Replay contract error · merge withheld";
     $("#process-copy").textContent =
       "Pinning stopped: the candidate scorer hash differs from the required comparison contract. No replay, inference, or gate was performed.";
     const card = $("#verdict-card");
